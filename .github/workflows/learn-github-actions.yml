@@ -38,4 +38,4 @@ jobs:
       env:
         super_secret: ${{ secrets.SUPERSECRET }}
       run: |
-        example-command "$super_secret"
+        echo "this is a secret >>$super_secret<<"
