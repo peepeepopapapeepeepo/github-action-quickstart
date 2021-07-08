@@ -31,13 +31,32 @@ jobs:
 #         name: output-log-file
 #     - name: view files
 #       run: cat output.log
-  secret:
+# # --- Secret ---
+#   secret:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: Retrieve secret
+#       env:
+#         super_secret: ${{ secrets.SUPERSECRET }}
+#       run: |
+#         if [ "$super_secret" == "Test1234" ]; then echo PASS; fi
+#     - name: Finished Test1234
+#       run: echo 'Test1234'
+# # --- Dependency ---
+  setup:
+    runs-on: ubuntu-lates
+    steps:
+    - name: setup
+      run: bash ./setup_server.sh setup
+  build:
+    needs: setup
+    runs-on: unbuntu-latest
+    steps:
+    - name: build
+      run: bash ./setup_server.sh build
+  test:
+    needs: build
     runs-on: ubuntu-latest
     steps:
-    - name: Retrieve secret
-      env:
-        super_secret: ${{ secrets.SUPERSECRET }}
-      run: |
-        if [ "$super_secret" == "Test1234" ]; then echo PASS; fi
-    - name: Finished Test1234
-      run: echo 'Test1234'
+    - name: test
+      run: bash ./setup_server.sh test
