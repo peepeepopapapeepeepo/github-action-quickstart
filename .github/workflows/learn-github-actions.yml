@@ -11,6 +11,8 @@ jobs:
   example-job:
     runs-on: ubuntu-latest
     steps:
+    - name: Check out codes
+      uses: actions/checkout@v2
     - name: Connect to PostgreSQL
       run: echo "POSTGRES_HOST=${POSTGRES_HOST}, POSTGRES_PORT=${POSTGRES_PORT}"
       env:
