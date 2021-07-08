@@ -111,7 +111,6 @@ jobs:
     - uses: actions/setup-node@v2
     - run: sudo npm install -g bats
     - run: bats -v
-    - run: npm init
     - name: Cache node modules
       uses: actions/cache@v2
       env:
