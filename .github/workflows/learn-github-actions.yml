@@ -1,13 +1,13 @@
 name: learn-github-actions
 on: [push]
 jobs:
-  check-bats-version:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-      - run: sudo npm install -g bats
-      - run: bats -v
+#   check-bats-version:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: actions/setup-node@v2
+#       - run: sudo npm install -g bats
+#       - run: bats -v
   example-job:
     runs-on: ubuntu-latest
     steps:
@@ -29,4 +29,12 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: output-log-file
+    - name: Download a single artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: output-log-file
+    - name: view files
+      run: |
+        ls -l 
+        cat output-log-file
         path: output.log
