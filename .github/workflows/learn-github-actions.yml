@@ -87,20 +87,37 @@ jobs:
 #         with:
 #           node-version: ${{ matrix.node }}
 # # --- matrix and env
-  build:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-       include:
-         - node-version: 10.x
-           site: "prod"
-           datacenter: "site-a"
-         - node-version: 12.x
-           site: "dev"
-           datacenter: "site-b"
+#   build:
+#     runs-on: ubuntu-latest
+#     strategy:
+#       matrix:
+#        include:
+#          - node-version: 10.x
+#            site: "prod"
+#            datacenter: "site-a"
+#          - node-version: 12.x
+#            site: "dev"
+#            datacenter: "site-b"
+#     steps:
+#       - name: Echo site details
+#         env:
+#           SITE: ${{ matrix.site }}
+#           DATACENTER: ${{ matrix.datacenter }}
+#         run: echo $SITE $DATACENTER
+# # --- Cache ---
+- name: Cache node modules
+  example-job:
     steps:
-      - name: Echo site details
-        env:
-          SITE: ${{ matrix.site }}
-          DATACENTER: ${{ matrix.datacenter }}
-        run: echo $SITE $DATACENTER
+    - uses: actions/setup-node@v2
+    - run: sudo npm install -g bats
+    - run: bats -v
+    - run: npm init
+    - name: Cache node modules
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
