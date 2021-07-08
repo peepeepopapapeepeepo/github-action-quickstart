@@ -13,13 +13,12 @@ jobs:
     steps:
     - name: Check out codes
       uses: actions/checkout@v2
-    - name: Connect to PostgreSQL
-      run: echo "POSTGRES_HOST=${POSTGRES_HOST}, POSTGRES_PORT=${POSTGRES_PORT}"
-      env:
-        POSTGRES_HOST: postgres
-        POSTGRES_PORT: 5432
-    - name: test PWD
-      run: echo $PWD; ls -la .github/scripts/; which bash
+#     - name: Connect to PostgreSQL
+#       run: echo "POSTGRES_HOST=${POSTGRES_HOST}, POSTGRES_PORT=${POSTGRES_PORT}"
+#       env:
+#         POSTGRES_HOST: postgres
+#         POSTGRES_PORT: 5432
+#     - name: test PWD
+#       run: echo $PWD; ls -la .github/scripts/; which
     - name: Run build script
-      run: ./.github/scripts/build.sh
-      shell: bash
+      run: bash ./.github/scripts/build.sh
