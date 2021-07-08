@@ -8,25 +8,32 @@ jobs:
 #       - uses: actions/setup-node@v2
 #       - run: sudo npm install -g bats
 #       - run: bats -v
-  upload-file:
-    runs-on: ubuntu-latest
-    steps:
-    - name: create file
-      shell: bash
+# # --- artifact ---
+#   upload-file:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: create file
+#       shell: bash
+#       run: |
+#         expr 1 + 1 > output.log
+#     - name: upload file
+#       uses: actions/upload-artifact@v2.2.4
+#       with:
+#         name: output-log-file
+#         path: output.log
+#   download-file:
+#     runs-on: ubuntu-latest
+#     needs: upload-file
+#     steps:
+#     - name: Download a single artifact
+#       uses: actions/download-artifact@v2
+#       with:
+#         name: output-log-file
+#     - name: view files
+#       run: cat output.log
+  secret:
+    - name: Retrieve secret
+      env:
+        super_secret: ${{ secrets.SUPERSECRET }}
       run: |
-        expr 1 + 1 > output.log
-    - name: upload file
-      uses: actions/upload-artifact@v2.2.4
-      with:
-        name: output-log-file
-        path: output.log
-  download-file:
-    runs-on: ubuntu-latest
-    needs: upload-file
-    steps:
-    - name: Download a single artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: output-log-file
-    - name: view files
-      run: cat output.log
+        example-command "$super_secret"
