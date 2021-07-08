@@ -54,11 +54,15 @@ jobs:
     needs: setup
     runs-on: unbuntu-latest
     steps:
+    - name: checkout code
+      uses: actions/checkout@v2.3.4
     - name: build
       run: bash ./setup_server.sh build
   test:
     needs: build
     runs-on: ubuntu-latest
     steps:
+    - name: checkout code
+      uses: actions/checkout@v2.3.4
     - name: test
       run: bash ./setup_server.sh test
