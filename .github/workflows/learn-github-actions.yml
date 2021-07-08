@@ -44,7 +44,7 @@ jobs:
 #       run: echo 'Test1234'
 # # --- Dependency ---
   setup:
-    runs-on: ubuntu-lates
+    runs-on: ubuntu-latest
     steps:
     - name: setup
       run: bash ./setup_server.sh setup
