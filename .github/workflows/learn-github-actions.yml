@@ -105,8 +105,8 @@ jobs:
 #           DATACENTER: ${{ matrix.datacenter }}
 #         run: echo $SITE $DATACENTER
 # # --- Cache ---
-- name: Cache node modules
   example-job:
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/setup-node@v2
     - run: sudo npm install -g bats
