@@ -67,22 +67,40 @@ jobs:
 #     - name: test
 #       run: bash ./setup_server.sh test
 # # --- Matrix ---
-  matrix:
-    runs-on: ${{ matrix.os }}
+#   matrix:
+#     runs-on: ${{ matrix.os }}
+#     strategy:
+#       matrix:
+#         os: [ubuntu-18.04, ubuntu-20.04]
+#         node: [10, 12, 14]
+# #         include:
+# #           # includes a new variable of npm with a value of 6
+# #           # for the matrix leg matching the os and version
+# #           - os: windows-latest
+# #             node: 8
+# #             npm: 6
+#         exclude:
+#         - os: ubuntu-18.04
+#           node: 10
+#     steps:
+#       - uses: actions/setup-node@v2
+#         with:
+#           node-version: ${{ matrix.node }}
+# # --- matrix and env
+  build:
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [ubuntu-18.04, ubuntu-20.04]
-        node: [10, 12, 14]
-#         include:
-#           # includes a new variable of npm with a value of 6
-#           # for the matrix leg matching the os and version
-#           - os: windows-latest
-#             node: 8
-#             npm: 6
-        exclude:
-        - os: ubuntu-18.04
-          node: 10
+       include:
+         - node-version: 10.x
+           site: "prod"
+           datacenter: "site-a"
+         - node-version: 12.x
+           site: "dev"
+           datacenter: "site-b"
     steps:
-      - uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node }}
+      - name: Echo site details
+        env:
+          SITE: ${{ matrix.site }}
+          DATACENTER: ${{ matrix.datacenter }}
+        run: echo $SITE $DATACENTER
