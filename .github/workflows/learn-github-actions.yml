@@ -38,5 +38,4 @@ jobs:
       run: rm output.log
     - name: view files
       run: |
-        ls -l 
-        cat output-log-file
+        ls -R
