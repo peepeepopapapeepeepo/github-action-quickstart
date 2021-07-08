@@ -17,7 +17,7 @@ jobs:
         POSTGRES_HOST: postgres
         POSTGRES_PORT: 5432
     - name: test PWD
-      run: echo $PWD; ls -l
+      run: echo $PWD; ls -l ./.github/scripts/
     - name: Run build script
       run: ./.github/scripts/build.sh
       shell: bash
