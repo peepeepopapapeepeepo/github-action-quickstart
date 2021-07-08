@@ -39,3 +39,5 @@ jobs:
         super_secret: ${{ secrets.SUPERSECRET }}
       run: |
         if [ "$super_secret" == "Test1234" ]; then echo PASS; fi
+    - name: Finished Test1234
+      run: echo 'Test1234'
