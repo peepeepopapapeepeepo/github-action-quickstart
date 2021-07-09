@@ -127,6 +127,9 @@ jobs:
           ${{ runner.os }}-build-${{ env.cache-name }}-
           ${{ runner.os }}-build-
           ${{ runner.os }}-
+    
+    - name: print cache status
+      run: echo "STATUS=${{ steps.cache.outputs.cache-hit }}"
 
     - name: Install Dependencies
       run: npm install
