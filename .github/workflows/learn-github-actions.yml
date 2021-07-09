@@ -127,7 +127,7 @@ jobs:
           ${{ runner.os }}-build-${{ env.cache-name }}-
           ${{ runner.os }}-build-
           ${{ runner.os }}-
-    - run:  ls -la
+    - run:  ls -la ~
     
     - name: print cache status
       if: steps.cache.outputs.cache-hit == 'true'
