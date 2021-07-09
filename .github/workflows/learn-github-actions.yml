@@ -105,22 +105,39 @@ jobs:
 #           DATACENTER: ${{ matrix.datacenter }}
 #         run: echo $SITE $DATACENTER
 # # --- Cache ---
-  cache-npm:
+#   cache-npm:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v2
+#     - name: Setup Node
+#       uses: actions/setup-node@v1
+#       with:
+#         node-version: 12.x
+#     - name: Cache Node Modules
+#       id: cache-node-modules
+#       uses: actions/cache@v2
+#       with:
+#         path: node_modules
+#         key: node-modules-${{ hashFiles('package-lock.json') }}
+#     - run: ls -l 
+#     - name: Install Dependencies
+#       if: steps.cache.outputs.cache-hit != 'true'
+#       run: npm install
+#     - run: cat package-lock.json
+# --- spinning container ---
+  container-job:
     runs-on: ubuntu-latest
+    container: node:10.18-jessie
+    services:
+      postgres:
+        image: postgres
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup Node
-      uses: actions/setup-node@v1
-      with:
-        node-version: 12.x
-    - name: Cache Node Modules
-      id: cache-node-modules
-      uses: actions/cache@v2
-      with:
-        path: node_modules
-        key: node-modules-${{ hashFiles('package-lock.json') }}
-    - run: ls -l 
-    - name: Install Dependencies
-      if: steps.cache.outputs.cache-hit != 'true'
-      run: npm install
-    - run: cat package-lock.json
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: npm ci
+      - name: Connect to PostgreSQL
+        run: node client.js
+        env:
+          POSTGRES_HOST: postgres
+          POSTGRES_PORT: 5432
