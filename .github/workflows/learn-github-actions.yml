@@ -129,7 +129,8 @@ jobs:
           ${{ runner.os }}-
     
     - name: print cache status
-      run: echo "STATUS=${{ steps.cache.outputs.cache-hit }}"
+      if: steps.cache.outputs.cache-hit == 'true'
+      run: echo "hit"
 
     - name: Install Dependencies
       run: npm install
