@@ -119,6 +119,8 @@ jobs:
       with:
         path: node_modules
         key: node-modules-${{ hashFiles('package-lock.json') }}
+    - run: ls -l 
     - name: Install Dependencies
       if: steps.cache.outputs.cache-hit != 'true'
       run: npm install
+    - run: ls -l 
