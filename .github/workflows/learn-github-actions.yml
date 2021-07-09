@@ -123,4 +123,4 @@ jobs:
     - name: Install Dependencies
       if: steps.cache.outputs.cache-hit != 'true'
       run: npm install
-    - run: ls -l 
+    - run: cat package-lock.json
